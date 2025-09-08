@@ -6,12 +6,17 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:vercel": "prisma generate && vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.9",
+    "@sveltejs/adapter-vercel": "^5.10.2",
     "@sveltejs/kit": "^2.37.1",
     "@sveltejs/vite-plugin-svelte": "^6.1.4",
     "@types/bcryptjs": "^2.4.6",

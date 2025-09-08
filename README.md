@@ -37,10 +37,10 @@ npm install
 
 # 環境変数の設定
 cp .env.example .env
-# .envファイルを編集してJWT_SECRETを設定
+# .envファイルを編集してSESSION_SECRETを設定
 
 # データベースのセットアップ
-npx prisma migrate dev
+npx prisma db push
 
 # 開発サーバーの起動
 npm run dev
@@ -165,9 +165,24 @@ npm run test:e2e
 npm test
 ```
 
-## ⚠️ GitHub Pages デプロイについて
+## 🚀 デプロイ
 
-このプロジェクトはGitHub Pagesにデプロイされていますが、**GitHub Pagesは静的ホスティングサービスのため、サーバーサイド機能（Form Actions、データベース接続など）は動作しません。**
+### Vercel（推奨）
+
+このプロジェクトはVercelにデプロイ可能です。詳細は[Vercelデプロイメントガイド](./docs/VERCEL_DEPLOYMENT.md)を参照してください。
+
+```bash
+# Vercel CLIでデプロイ
+vercel
+
+# 環境変数を設定（Vercelダッシュボードで）
+DATABASE_URL=<Vercel Postgresの接続URL>
+SESSION_SECRET=<ランダムな文字列>
+```
+
+### GitHub Pages について
+
+GitHub Pagesは静的ホスティングサービスのため、**サーバーサイド機能（Form Actions、データベース接続など）は動作しません。**
 
 ### 動作する機能
 - ✅ ページの表示とナビゲーション
