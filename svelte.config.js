@@ -8,12 +8,12 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: undefined,
+			fallback: '404.html',
 			precompress: false,
 			strict: true
 		}),
 		paths: {
-			base: process.argv.includes('dev') ? '' : '/svelte5-blog-example'
+			base: process.argv.includes('dev') ? '' : '/svelte5-auth-basic'
 		}
 	}
 };
