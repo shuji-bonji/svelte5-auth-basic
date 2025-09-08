@@ -69,9 +69,10 @@ export const actions: Actions = {
 
       // ダッシュボードにリダイレクト
       throw redirect(303, '/dashboard');
-    } catch (error) {
-      if (error instanceof Response) {
-        // リダイレクトの場合はそのまま投げる
+    } catch (error: any) {
+      // リダイレクトの場合はそのまま投げる
+      if (error && typeof error === 'object' && 'status' in error && 'location' in error) {
+        console.log('リダイレクト検出 - 正常動作:', error.location);
         throw error;
       }
       

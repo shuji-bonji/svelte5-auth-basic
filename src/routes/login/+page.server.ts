@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { getUserByEmail, verifyPassword, createSession, setSessionCookie } from '$lib/server/auth';
 
@@ -17,18 +17,24 @@ export const actions: Actions = {
     }
 
     try {
+      console.log('ログイン試行:', email);
+      
       // ユーザーを取得
       const user = await getUserByEmail(email);
       
       if (!user) {
+        console.log('ユーザーが見つかりません:', email);
         return fail(401, {
           email,
           error: 'メールアドレスまたはパスワードが正しくありません'
         });
       }
+      
+      console.log('ユーザー取得成功:', user.id);
 
       // パスワードを検証
       const isValid = await verifyPassword(password, user.password);
+      console.log('パスワード検証結果:', isValid);
       
       if (!isValid) {
         return fail(401, {
@@ -39,20 +45,24 @@ export const actions: Actions = {
 
       // セッション作成
       const sessionToken = await createSession(user.id);
+      console.log('セッション作成成功:', sessionToken);
       
       // Cookieにセッションを設定
       setSessionCookie(cookies, sessionToken);
 
       // リダイレクト先を決定（from パラメータがあればそこへ、なければダッシュボードへ）
       const redirectTo = url.searchParams.get('from') || '/dashboard';
+      console.log('リダイレクト先:', redirectTo);
       throw redirect(303, redirectTo);
-    } catch (error) {
-      if (error instanceof Response) {
-        // リダイレクトの場合はそのまま投げる
+    } catch (error: any) {
+      // リダイレクトの場合はそのまま投げる
+      if (error && typeof error === 'object' && 'status' in error && 'location' in error) {
+        console.log('リダイレクト検出 - 正常動作:', error.location);
         throw error;
       }
       
-      console.error('Login failed:', error);
+      console.error('Login failed - 詳細エラー:', error);
+      console.error('エラースタック:', error instanceof Error ? error.stack : 'スタックなし');
       return fail(500, {
         email,
         error: 'ログイン中にエラーが発生しました。もう一度お試しください。'

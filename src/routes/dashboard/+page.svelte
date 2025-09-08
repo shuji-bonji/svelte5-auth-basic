@@ -33,7 +33,7 @@
           <span class="value">{data.user.id}</span>
         </div>
       </div>
-      <a href="/profile" class="btn btn-secondary">プロフィール編集</a>
+      <a href="#" class="btn btn-secondary" onclick="return false;">プロフィール編集（準備中）</a>
     </div>
     
     <div class="dashboard-card">
@@ -66,9 +66,9 @@
       <h2>⚙️ 設定</h2>
       <p>アプリケーションの設定を変更します。</p>
       <div class="settings-links">
-        <a href="/settings/account">アカウント設定</a>
-        <a href="/settings/privacy">プライバシー設定</a>
-        <a href="/settings/notifications">通知設定</a>
+        <a href="#" onclick="return false;">アカウント設定（準備中）</a>
+        <a href="#" onclick="return false;">プライバシー設定（準備中）</a>
+        <a href="#" onclick="return false;">通知設定（準備中）</a>
       </div>
     </div>
   </div>
@@ -200,6 +200,16 @@
     text-decoration: underline;
   }
   
+  .settings-links a[onclick] {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .settings-links a[onclick]:hover {
+    text-decoration: none;
+  }
+  
   .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -221,6 +231,15 @@
   
   .btn-secondary:hover {
     background: var(--color-bg-secondary);
+  }
+  
+  .btn-secondary[onclick] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .btn-secondary[onclick]:hover {
+    background: var(--color-bg);
   }
   
   .btn-danger {
