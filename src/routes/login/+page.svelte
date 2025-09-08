@@ -26,6 +26,7 @@
           type="email"
           id="email"
           name="email"
+          autocomplete="email"
           required
           value={form?.email ?? ''}
         />
@@ -37,6 +38,7 @@
           type="password"
           id="password"
           name="password"
+          autocomplete="current-password"
           required
         />
       </div>

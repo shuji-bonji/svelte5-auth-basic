@@ -32,6 +32,7 @@
           type="text"
           id="name"
           name="name"
+          autocomplete="name"
           value={form?.name ?? ''}
         />
       </div>
@@ -42,6 +43,7 @@
           type="email"
           id="email"
           name="email"
+          autocomplete="email"
           required
           value={form?.email ?? ''}
         />
@@ -53,6 +55,7 @@
           type="password"
           id="password"
           name="password"
+          autocomplete="new-password"
           required
           minlength="6"
         />
