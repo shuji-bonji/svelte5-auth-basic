@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          BASE_PATH: '/svelte5-blog-example'
+          BASE_PATH: '/svelte5-auth-basic'
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
