@@ -33,7 +33,7 @@
           <span class="value">{data.user.id}</span>
         </div>
       </div>
-      <a href="#" class="btn btn-secondary" onclick="return false;">プロフィール編集（準備中）</a>
+      <a href="#" class="btn btn-secondary" onclick={(e) => e.preventDefault()}>プロフィール編集（準備中）</a>
     </div>
     
     <div class="dashboard-card">
@@ -66,9 +66,9 @@
       <h2>⚙️ 設定</h2>
       <p>アプリケーションの設定を変更します。</p>
       <div class="settings-links">
-        <a href="#" onclick="return false;">アカウント設定（準備中）</a>
-        <a href="#" onclick="return false;">プライバシー設定（準備中）</a>
-        <a href="#" onclick="return false;">通知設定（準備中）</a>
+        <a href="#" onclick={(e) => e.preventDefault()}>アカウント設定（準備中）</a>
+        <a href="#" onclick={(e) => e.preventDefault()}>プライバシー設定（準備中）</a>
+        <a href="#" onclick={(e) => e.preventDefault()}>通知設定（準備中）</a>
       </div>
     </div>
   </div>

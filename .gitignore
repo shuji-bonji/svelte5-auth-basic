@@ -8,3 +8,11 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+
+# Test scripts
+test-auth.js
+reset-user.js
