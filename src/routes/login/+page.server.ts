@@ -52,7 +52,7 @@ export const actions: Actions = {
         throw error;
       }
       
-      console.error('Login error:', error);
+      console.error('Login failed:', error);
       return fail(500, {
         email,
         error: 'ログイン中にエラーが発生しました。もう一度お試しください。'

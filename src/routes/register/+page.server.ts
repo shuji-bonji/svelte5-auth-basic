@@ -75,7 +75,7 @@ export const actions: Actions = {
         throw error;
       }
       
-      console.error('Registration error:', error);
+      console.error('Registration failed:', error);
       return fail(500, {
         email,
         name,

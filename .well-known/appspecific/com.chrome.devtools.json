@@ -1,0 +1,5 @@
+{
+  "devtools": {
+    "client": "svelte5-auth-basic"
+  }
+}

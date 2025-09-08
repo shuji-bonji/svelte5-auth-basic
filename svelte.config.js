@@ -14,6 +14,9 @@ const config = {
 		}),
 		paths: {
 			base: process.argv.includes('dev') ? '' : '/svelte5-auth-basic'
+		},
+		files: {
+			assets: ['static', '.well-known']
 		}
 	}
 };
