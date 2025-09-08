@@ -2,26 +2,17 @@
   import { page } from '$app/stores';
   import { base } from '$app/paths';
   
-  type NavItem = {
-    href: string;
-    label: string;
-    matchPath?: string;
-  };
-  
-  const navItems: NavItem[] = [
-    { href: '/', label: 'ホーム' },
-    { href: '/blog', label: 'ブログ', matchPath: '/blog' },
-    { href: '/about', label: 'About' }
-  ];
+  // ユーザー情報を親レイアウトから受け取る
+  let { user }: { user?: { id: string; email: string; name: string | null } } = $props();
   
   let currentPath = $derived($page.url.pathname);
   
-  function isActive(item: NavItem): boolean {
-    const path = currentPath.replace(base, '') || '/';
-    if (item.href === '/' && path === '/') {
+  function isActive(path: string): boolean {
+    const current = currentPath.replace(base, '') || '/';
+    if (path === '/' && current === '/') {
       return true;
     }
-    if (item.href !== '/' && path.startsWith(item.matchPath || item.href)) {
+    if (path !== '/' && current.startsWith(path)) {
       return true;
     }
     return false;
@@ -30,19 +21,56 @@
 
 <nav class="navbar">
   <div class="nav-container">
-    <a href="{base}/" class="logo">My Blog</a>
+    <a href="{base}/" class="logo">🔐 Auth Basic</a>
     <ul class="nav-menu">
-      {#each navItems as item}
+      <li>
+        <a 
+          href="{base}/"
+          class:active={isActive('/')}
+          aria-current={isActive('/') ? 'page' : undefined}
+        >
+          ホーム
+        </a>
+      </li>
+      {#if user}
         <li>
           <a 
-            href="{base}{item.href}"
-            class:active={isActive(item)}
-            aria-current={isActive(item) ? 'page' : undefined}
+            href="{base}/dashboard"
+            class:active={isActive('/dashboard')}
+            aria-current={isActive('/dashboard') ? 'page' : undefined}
           >
-            {item.label}
+            ダッシュボード
           </a>
         </li>
-      {/each}
+        <li class="user-info">
+          <span>{user.name || user.email}</span>
+        </li>
+        <li>
+          <form method="POST" action="/logout" class="logout-form">
+            <button type="submit" class="logout-btn">ログアウト</button>
+          </form>
+        </li>
+      {:else}
+        <li>
+          <a 
+            href="{base}/login"
+            class:active={isActive('/login')}
+            aria-current={isActive('/login') ? 'page' : undefined}
+          >
+            ログイン
+          </a>
+        </li>
+        <li>
+          <a 
+            href="{base}/register"
+            class:active={isActive('/register')}
+            aria-current={isActive('/register') ? 'page' : undefined}
+            class="register-btn"
+          >
+            新規登録
+          </a>
+        </li>
+      {/if}
     </ul>
   </div>
 </nav>
@@ -74,10 +102,11 @@
   
   .nav-menu {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
+    align-items: center;
   }
   
   .nav-menu a {
@@ -91,13 +120,62 @@
     color: var(--color-primary);
   }
   
+  .register-btn {
+    background: var(--color-primary);
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+  }
+  
+  .register-btn:hover {
+    background: var(--color-primary-dark);
+  }
+  
+  .user-info {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+  
+  .logout-form {
+    margin: 0;
+  }
+  
+  .logout-btn {
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+  
+  .logout-btn:hover {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+  
   @media (max-width: 768px) {
     .nav-menu {
-      gap: 1rem;
+      gap: 0.5rem;
+      font-size: 0.875rem;
     }
     
     .nav-container {
       padding: 1rem;
+    }
+    
+    .logo {
+      font-size: 1.25rem;
+    }
+    
+    .user-info span {
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
     }
   }
 </style>

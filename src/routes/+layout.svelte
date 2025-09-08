@@ -2,13 +2,14 @@
   import Navigation from '$lib/components/Navigation.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import type { Snippet } from 'svelte';
+  import type { LayoutData } from './$types';
   import '../app.css';
   
-  let { children }: { children?: Snippet } = $props();
+  let { children, data }: { children?: Snippet; data: LayoutData } = $props();
 </script>
 
 <div class="app">
-  <Navigation />
+  <Navigation user={data.user} />
   
   <main class="main">
     {@render children?.()}
