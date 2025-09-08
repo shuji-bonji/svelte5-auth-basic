@@ -16,3 +16,5 @@ prisma/*.db-journal
 # Test scripts
 test-auth.js
 reset-user.js
+.vercel
+.env*.local

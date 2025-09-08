@@ -76,11 +76,26 @@ export const actions: Actions = {
         throw error;
       }
       
+      // エラーの詳細をログに記録
       console.error('Registration failed:', error);
+      console.error('Error details:', {
+        message: error?.message,
+        stack: error?.stack,
+        code: error?.code
+      });
+      
+      // Prismaエラーの場合の詳細なメッセージ
+      let errorMessage = '登録中にエラーが発生しました。もう一度お試しください。';
+      if (error?.code === 'P2002') {
+        errorMessage = 'このメールアドレスは既に登録されています';
+      } else if (error?.code?.startsWith('P')) {
+        errorMessage = 'データベースエラーが発生しました。しばらくしてからお試しください。';
+      }
+      
       return fail(500, {
         email,
         name,
-        error: '登録中にエラーが発生しました。もう一度お試しください。'
+        error: errorMessage
       });
     }
   }

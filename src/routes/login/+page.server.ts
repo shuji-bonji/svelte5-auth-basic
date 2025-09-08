@@ -63,9 +63,20 @@ export const actions: Actions = {
       
       console.error('Login failed - 詳細エラー:', error);
       console.error('エラースタック:', error instanceof Error ? error.stack : 'スタックなし');
+      console.error('Error details:', {
+        message: error?.message,
+        code: error?.code
+      });
+      
+      // エラーメッセージの詳細化
+      let errorMessage = 'ログイン中にエラーが発生しました。もう一度お試しください。';
+      if (error?.code?.startsWith('P')) {
+        errorMessage = 'データベースエラーが発生しました。しばらくしてからお試しください。';
+      }
+      
       return fail(500, {
         email,
-        error: 'ログイン中にエラーが発生しました。もう一度お試しください。'
+        error: errorMessage
       });
     }
   }
