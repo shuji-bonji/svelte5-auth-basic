@@ -1,8 +1,8 @@
 <footer class="footer">
   <div class="footer-content">
-    <p>&copy; 2024 My Blog. Built with Svelte 5 and SvelteKit.</p>
+    <p>&copy; 2025 Auth Basic Demo. Built with Svelte 5 and SvelteKit.</p>
     <div class="links">
-      <a href="https://github.com/shuji-bonji/svelte5-blog-example" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/shuji-bonji/svelte5-auth-basic" target="_blank" rel="noopener noreferrer">
         GitHub
       </a>
       <a href="https://svelte.dev" target="_blank" rel="noopener noreferrer">
