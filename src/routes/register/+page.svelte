@@ -120,6 +120,7 @@
     border-radius: 6px;
     font-size: 1rem;
     background: var(--color-bg);
+    color: var(--color-text);
   }
   
   input:focus {

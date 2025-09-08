@@ -1,5 +1,6 @@
 :root {
   --color-primary: #ff3e00;
+  --color-primary-dark: #e03600;
   --color-primary-light: #ff3e0020;
   --color-bg: #ffffff;
   --color-bg-secondary: #f5f5f5;
@@ -7,11 +8,14 @@
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
   --color-border: #e0e0e0;
+  --color-error: #dc3545;
+  --color-success: #28a745;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-primary: #ff6b42;
+    --color-primary-dark: #ff5328;
     --color-primary-light: #ff6b4220;
     --color-bg: #1a1a1a;
     --color-bg-secondary: #2a2a2a;
@@ -19,6 +23,8 @@
     --color-text-secondary: #b0b0b0;
     --color-text-muted: #808080;
     --color-border: #404040;
+    --color-error: #e74c3c;
+    --color-success: #2ecc71;
   }
 }
 
@@ -55,4 +61,27 @@ code {
 pre code {
   background: none;
   padding: 0;
+}
+
+/* フォーム要素のダークモード対応 */
+input, textarea, select {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ボタンのスタイル調整 */
+button {
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+button:hover {
+  background: var(--color-border);
 }
