@@ -142,8 +142,97 @@ DATABASE_URL="postgresql://..." npm run build:local
 DATABASE_URL="postgresql://..." npm run preview
 ```
 
+## 本番データベースの管理
+
+### .env.localを使用した管理（推奨）
+
+Vercel CLIを使用している場合、`.env.local`にデータベースURLが自動的に保存されます。
+
+### 利用可能なnpmスクリプト
+
+```bash
+# スキーマを本番DBに適用（データ保持）
+npm run db:push:prod
+
+# 本番DBを初期化（⚠️ 全データ削除）
+npm run db:reset:prod
+
+# 本番DBをブラウザで確認（Prisma Studio）
+npm run db:studio:prod
+
+# スキーマ更新してデプロイ
+npm run deploy:prod
+```
+
+### 本番DBの初期化手順
+
+#### 初回セットアップ
+```bash
+# 1. Vercelで環境変数設定（DATABASE_URL, JWT_SECRET）
+# 2. 本番DBにスキーマを適用
+npm run db:push:prod
+```
+
+#### データベースの完全リセット
+
+⚠️ **警告**: 以下の操作は全てのデータを削除します！
+
+```bash
+# 方法1: npmスクリプトを使用（推奨）
+npm run db:reset:prod
+
+# 方法2: 手動で実行
+DATABASE_URL="<NeonのURL>" npx prisma db push --schema=./prisma/schema.production.prisma --force-reset
+```
+
+### スキーマ変更の反映
+
+```bash
+# 1. ローカルスキーマを編集
+# prisma/schema.prisma を編集
+
+# 2. 本番用スキーマも編集
+# prisma/schema.production.prisma を同じように編集
+
+# 3. ローカルDBに適用（開発確認用）
+npm run db:push
+
+# 4. 本番DBに適用
+npm run db:push:prod
+
+# 5. デプロイ
+git add .
+git commit -m "スキーマ更新"
+git push origin main
+```
+
+### ショートカット（スキーマ更新 + デプロイ）
+
+```bash
+# 本番DBに反映してGitHubにpush（Vercel自動デプロイ）
+npm run deploy:prod
+```
+
+### データベースの確認
+
+```bash
+# 本番DBの内容をPrisma Studioで確認
+npm run db:studio:prod
+
+# Neon Consoleでも確認可能
+# https://console.neon.tech
+```
+
+## セキュリティに関する注意事項
+
+- `.env.local`ファイルは**絶対にGitにコミットしない**（.gitignoreに追加済み）
+- 本番DBのURLは開発者のみがアクセスできるように管理
+- `db:reset:prod`は本番環境では慎重に使用
+- 定期的なバックアップを推奨
+
 ## 注意事項
 
 - SQLiteとPostgreSQLで若干の動作の違いがある可能性があります
 - 本番環境では必ず強力な`JWT_SECRET`を使用してください
 - Vercel Postgresには無料枠の制限があります（詳細はVercelのドキュメントを参照）
+- Neonの無料プランはコールドスタートがあるため、初回アクセスが遅い場合があります

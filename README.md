@@ -46,41 +46,75 @@ npx prisma db push
 npm run dev
 ```
 
-## 🔧 データベースの管理
+## 🔧 データベースの管理（ローカル開発）
 
-### データベースのリフレッシュ（再構築）
+### 初期セットアップ
+
+```bash
+# データベースを作成してスキーマを適用
+npx prisma db push
+
+# または、npmスクリプトを使用
+npm run db:push
+```
+
+### データベースの初期化（リセット）
 
 開発中にデータベースを初期状態に戻したい場合：
 
 ```bash
-# SQLiteデータベースファイルを削除
+# 方法1: ファイルを削除して再作成（推奨）
 rm -f prisma/dev.db
 rm -f prisma/dev.db-journal
-
-# データベースを再作成してスキーマを適用
 npx prisma db push
 
-# または、マイグレーションを使用する場合
+# 方法2: マイグレーションを使用
 npx prisma migrate reset
+
+# 方法3: npmスクリプトを使用
+npm run db:push  # スキーマを再適用
 ```
 
-### Prismaクライアントの再生成
+### スキーマ変更の手順
 
-スキーマを変更した後：
+1. **スキーマファイルを編集**
+   ```
+   prisma/schema.prisma を編集
+   ```
+
+2. **変更を適用**
+   ```bash
+   # Prismaクライアントを再生成
+   npx prisma generate
+   
+   # データベースに変更を反映
+   npx prisma db push
+   
+   # または、一度に実行
+   npx prisma db push && npx prisma generate
+   ```
+
+3. **本番用スキーマも更新**
+   ```
+   prisma/schema.production.prisma も同じ変更を適用
+   ```
+
+### データベースの確認・管理
 
 ```bash
-# Prismaクライアントを再生成
-npx prisma generate
-
-# データベースにスキーマ変更を反映
-npx prisma db push
-```
-
-### データベースの確認
-
-```bash
-# Prisma Studioでデータベースの内容を確認
+# Prisma Studioでデータベースをブラウザで確認
 npx prisma studio
+
+# または、npmスクリプトを使用
+npm run db:studio
+```
+
+### 利用可能なnpmスクリプト
+
+```bash
+npm run db:push        # スキーマをDBに適用
+npm run db:migrate     # マイグレーション実行
+npm run db:studio      # Prisma Studio起動
 ```
 
 ## 📁 プロジェクト構成
