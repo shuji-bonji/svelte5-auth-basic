@@ -12,7 +12,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "db:push": "prisma db push",
     "db:push:prod": "dotenv -e .env.local -- prisma db push --schema=./prisma/schema.production.prisma",
-    "deploy:prod": "npm run db:push:prod && git push",
+    "deploy:prod": "npm run db:push:prod && git push origin main",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "postinstall": "prisma generate --schema=./prisma/schema.production.prisma || prisma generate"
