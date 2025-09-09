@@ -4,8 +4,8 @@ import type { Cookies } from '@sveltejs/kit';
 
 const prisma = new PrismaClient();
 
-// セッションの有効期限（30日）
-const SESSION_EXPIRY_DAYS = 30;
+// セッションの有効期限（7日）
+const SESSION_EXPIRY_DAYS = 7;
 
 export interface User {
   id: string;
