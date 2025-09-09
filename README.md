@@ -37,13 +37,50 @@ npm install
 
 # 環境変数の設定
 cp .env.example .env
-# .envファイルを編集してSESSION_SECRETを設定
+# .envファイルを編集してJWT_SECRETを設定
 
 # データベースのセットアップ
 npx prisma db push
 
 # 開発サーバーの起動
 npm run dev
+```
+
+## 🔧 データベースの管理
+
+### データベースのリフレッシュ（再構築）
+
+開発中にデータベースを初期状態に戻したい場合：
+
+```bash
+# SQLiteデータベースファイルを削除
+rm -f prisma/dev.db
+rm -f prisma/dev.db-journal
+
+# データベースを再作成してスキーマを適用
+npx prisma db push
+
+# または、マイグレーションを使用する場合
+npx prisma migrate reset
+```
+
+### Prismaクライアントの再生成
+
+スキーマを変更した後：
+
+```bash
+# Prismaクライアントを再生成
+npx prisma generate
+
+# データベースにスキーマ変更を反映
+npx prisma db push
+```
+
+### データベースの確認
+
+```bash
+# Prisma Studioでデータベースの内容を確認
+npx prisma studio
 ```
 
 ## 📁 プロジェクト構成
@@ -176,9 +213,17 @@ npm test
 vercel
 
 # 環境変数を設定（Vercelダッシュボードで）
-DATABASE_URL=<Vercel Postgresの接続URL>
-SESSION_SECRET=<ランダムな文字列>
+# Neonを使用する場合
+DATABASE_URL=postgresql://[user]:[password]@[host]/[database]?sslmode=require
+
+# Vercel Postgresを使用する場合
+DATABASE_URL=<Vercel PostgresのPOSTGRES_PRISMA_URL>
+
+# 共通
+JWT_SECRET=<ランダムな文字列>
 ```
+
+**注意**: 本番環境ではPostgreSQLが必要です（Neon、Vercel Postgres、Supabaseなど）
 
 ### GitHub Pages について
 

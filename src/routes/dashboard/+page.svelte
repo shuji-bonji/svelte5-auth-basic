@@ -12,7 +12,7 @@
   <div class="welcome-section">
     <h1>ダッシュボード</h1>
     <p class="welcome-message">
-      ようこそ、{data.user.name || data.user.email}さん！
+      ようこそ、{data.user?.name || data.user?.email}さん！
     </p>
   </div>
   
@@ -22,18 +22,18 @@
       <div class="info-list">
         <div class="info-item">
           <span class="label">名前:</span>
-          <span class="value">{data.user.name || '未設定'}</span>
+          <span class="value">{data.user?.name || '未設定'}</span>
         </div>
         <div class="info-item">
           <span class="label">メールアドレス:</span>
-          <span class="value">{data.user.email}</span>
+          <span class="value">{data.user?.email}</span>
         </div>
         <div class="info-item">
           <span class="label">ユーザーID:</span>
-          <span class="value">{data.user.id}</span>
+          <span class="value">{data.user?.id}</span>
         </div>
       </div>
-      <a href="#" class="btn btn-secondary" onclick={(e) => e.preventDefault()}>プロフィール編集（準備中）</a>
+      <button type="button" class="btn btn-secondary" disabled>プロフィール編集（準備中）</button>
     </div>
     
     <div class="dashboard-card">
@@ -66,9 +66,9 @@
       <h2>⚙️ 設定</h2>
       <p>アプリケーションの設定を変更します。</p>
       <div class="settings-links">
-        <a href="#" onclick={(e) => e.preventDefault()}>アカウント設定（準備中）</a>
-        <a href="#" onclick={(e) => e.preventDefault()}>プライバシー設定（準備中）</a>
-        <a href="#" onclick={(e) => e.preventDefault()}>通知設定（準備中）</a>
+        <button type="button" class="link-button" disabled>アカウント設定（準備中）</button>
+        <button type="button" class="link-button" disabled>プライバシー設定（準備中）</button>
+        <button type="button" class="link-button" disabled>通知設定（準備中）</button>
       </div>
     </div>
   </div>
@@ -190,23 +190,30 @@
     margin-top: 1rem;
   }
   
-  .settings-links a {
+  .settings-links button.link-button {
+    background: none;
+    border: none;
     color: var(--color-primary);
     text-decoration: none;
     padding: 0.5rem 0;
+    text-align: left;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    width: 100%;
   }
   
-  .settings-links a:hover {
+  .settings-links button.link-button:hover {
     text-decoration: underline;
   }
   
-  .settings-links a[onclick] {
+  .settings-links button.link-button[disabled] {
     color: var(--color-text-muted);
     cursor: not-allowed;
     opacity: 0.6;
   }
   
-  .settings-links a[onclick]:hover {
+  .settings-links button.link-button[disabled]:hover {
     text-decoration: none;
   }
   
@@ -233,12 +240,12 @@
     background: var(--color-bg-secondary);
   }
   
-  .btn-secondary[onclick] {
+  .btn-secondary[disabled] {
     opacity: 0.6;
     cursor: not-allowed;
   }
   
-  .btn-secondary[onclick]:hover {
+  .btn-secondary[disabled]:hover {
     background: var(--color-bg);
   }
   

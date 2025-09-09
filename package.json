@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "prisma generate && vite build",
+    "build": "prisma generate --schema=./prisma/schema.production.prisma && vite build",
+    "build:local": "prisma generate && vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "db:push": "prisma db push",
+    "db:push:prod": "dotenv -e .env.local -- prisma db push --schema=./prisma/schema.production.prisma",
+    "deploy:prod": "npm run db:push:prod && git push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate --schema=./prisma/schema.production.prisma || prisma generate"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.9",
@@ -21,6 +24,7 @@
     "@sveltejs/vite-plugin-svelte": "^6.1.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^24.3.1",
+    "dotenv-cli": "^10.0.0",
     "prisma": "^6.15.0",
     "svelte": "^5.38.7",
     "svelte-check": "^4.3.1",

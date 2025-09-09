@@ -19,12 +19,6 @@
       </div>
     {/if}
     
-    {#if form?.success}
-      <div class="success-message">
-        登録が完了しました！ログインページへ移動します...
-      </div>
-    {/if}
-    
     <form method="POST" use:enhance>
       <div class="form-group">
         <label for="name">名前（任意）</label>
@@ -171,14 +165,6 @@
   .error-message {
     background: #fee;
     color: #c00;
-    padding: 0.75rem;
-    border-radius: 6px;
-    margin-bottom: 1rem;
-  }
-  
-  .success-message {
-    background: #efe;
-    color: #080;
     padding: 0.75rem;
     border-radius: 6px;
     margin-bottom: 1rem;
