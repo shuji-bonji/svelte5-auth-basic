@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
 </script>
 
 <svelte:head>
@@ -38,8 +38,8 @@
   <section class="cta">
     <h2>始めましょう</h2>
     <div class="cta-buttons">
-      <a href="{base}/register" class="btn btn-primary">新規登録</a>
-      <a href="{base}/login" class="btn btn-secondary">ログイン</a>
+      <a href={resolve('/register')} class="btn btn-primary">新規登録</a>
+      <a href={resolve('/login')} class="btn btn-secondary">ログイン</a>
     </div>
   </section>
 </div>

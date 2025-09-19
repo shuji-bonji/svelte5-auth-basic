@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { page } from '$app/stores';
-  import { base } from '$app/paths';
+  import type { Pathname } from '$app/types';
+
   
   // ユーザー情報を親レイアウトから受け取る
   let { user }: { user?: { id: string; email: string; name: string | null } } = $props();
@@ -8,11 +10,11 @@
   let currentPath = $derived($page.url.pathname);
   
   function isActive(path: string): boolean {
-    const current = currentPath.replace(base, '') || '/';
-    if (path === '/' && current === '/') {
+    const resolvedPath = resolve(path as Pathname);
+    if (path === '/' && currentPath === resolvedPath) {
       return true;
     }
-    if (path !== '/' && current.startsWith(path)) {
+    if (path !== '/' && currentPath.startsWith(resolvedPath)) {
       return true;
     }
     return false;
@@ -21,11 +23,11 @@
 
 <nav class="navbar">
   <div class="nav-container">
-    <a href="{base}/" class="logo">🔐 Auth Basic</a>
+    <a href={resolve('/')} class="logo">🔐 Auth Basic</a>
     <ul class="nav-menu">
       <li>
-        <a 
-          href="{base}/"
+        <a
+          href={resolve('/')}
           class:active={isActive('/')}
           aria-current={isActive('/') ? 'page' : undefined}
         >
@@ -34,8 +36,8 @@
       </li>
       {#if user}
         <li>
-          <a 
-            href="{base}/dashboard"
+          <a
+            href={resolve('/dashboard')}
             class:active={isActive('/dashboard')}
             aria-current={isActive('/dashboard') ? 'page' : undefined}
           >
@@ -52,8 +54,8 @@
         </li>
       {:else}
         <li>
-          <a 
-            href="{base}/login"
+          <a
+            href={resolve('/login')}
             class:active={isActive('/login')}
             aria-current={isActive('/login') ? 'page' : undefined}
           >
@@ -61,8 +63,8 @@
           </a>
         </li>
         <li>
-          <a 
-            href="{base}/register"
+          <a
+            href={resolve('/register')}
             class:active={isActive('/register')}
             aria-current={isActive('/register') ? 'page' : undefined}
             class="register-btn"

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
 </script>
 
 <div class="error-page">
   <h1>{$page.status}</h1>
   <p>{$page.error?.message || 'エラーが発生しました'}</p>
-  <a href="{base}/" class="home-link">ホームへ戻る</a>
+  <a href={resolve('/')} class="home-link">ホームへ戻る</a>
 </div>
 
 <style>
